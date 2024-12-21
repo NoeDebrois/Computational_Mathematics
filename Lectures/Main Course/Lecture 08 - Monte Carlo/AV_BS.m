@@ -17,6 +17,11 @@ sigma = 0.6; % This parameter has to be calibrated.
 % Source of randomness :
 x1 = randn(Nsim, 1); % x1 ~ N(0, 1).
 x2 = -x1; % Antithetic variable : perfectly negative-correlated RVs w/ x1.
+% IMPLEMENTATION with U RV and icdf:
+%U1 = rand(Nsim, 1);
+%U2 = 1 - U1;
+%x1 = icdf('normal', U1, 0, 1);
+%x2 = icdf('normal', U2, 0, 1);
 
 % B&S framework :
 ST1 = S0 * exp((r - sigma^2 / 2) * T + sigma * sqrt(T) * x1);
