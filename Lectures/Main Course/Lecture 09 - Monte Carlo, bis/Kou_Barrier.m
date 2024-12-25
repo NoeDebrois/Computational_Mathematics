@@ -25,7 +25,7 @@ sigma = 0.4; % Volatility
 M = round(52 * T); 
 
 % Simulation's parameters :
-Nsim = 1e6; % Nb of MC paths.
+Nsim = 1e4; % Nb of MC paths.
 dt = T / M; % Time step
 
 % Kou model's parameters :
@@ -51,6 +51,8 @@ X = zeros(Nsim, M+1);
 Z = randn(Nsim, M); 
 NJ = poissrnd(lambda * dt, Nsim, M);
 
+figure;
+
 for i=1:M
     X(:, i + 1) = X(:, i) + drift * dt + sigma * sqrt(dt) * Z(:, i);
     for j=1:Nsim
@@ -62,6 +64,11 @@ for i=1:M
             end
         end
     end
+end
+
+for i=1:Nsim
+    plot(linspace(0, 1, M+1), X(i,:));
+    hold on;
 end
 
 S = S0 * exp(X); 
@@ -86,10 +93,18 @@ for i=1:M
             else
                 JJ = -exprnd(1 / lambdam);
             end
-            X(j, i + 1) = X(j, i + 1) + JJ;
-            XAV(j, i + 1) = XAV(j, i + 1) + JJ;            
+            X(j, i + 1) = X(j, i + 1) % + JJ;
+            XAV(j, i + 1) = XAV(j, i + 1) % + JJ;            
         end
     end
+end
+
+figure;
+for i=1:Nsim
+    plot(linspace(0, 1, M+1), X(i,:));
+    hold on;
+    plot(linspace(0, 1, M+1), XAV(i,:));
+    hold on;
 end
 
 S = S0 * exp(X);

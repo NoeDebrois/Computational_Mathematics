@@ -53,6 +53,7 @@ end
 disp("Confidence interval:")
 disp(CI);
 
+% For comparison with the closed formula:
 [~, BSPrice] = blsprice(S0, K, r, T, sigma);
 disp("BS price:")
 disp(BSPrice)

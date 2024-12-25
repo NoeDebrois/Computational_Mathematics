@@ -84,12 +84,12 @@ discpayoffLFiPmin = exp(-r * T) * max(K - min(S,[],2), 0);
 %% 3. Price and Confidence Interval :
 % EU Call Option :
 [priceEU, ~, CIEU] = normfit(discpayoffEU) % MC CI
-priceCMEU = FFT_CM_Call_VG(K, [sigma,theta,k], T, r, S0) % CM (to compare)
+%priceCMEU = FFT_CM_Call_VG(K, [sigma,theta,k], T, r, S0) % CM (to compare)
 
-% Asian Fixed Strike Put Option :
+% Asian Fixed Strike Put Option (on the mean) :
 [priceAFiP, ~, CIAFiP] = normfit(discpayoffAFiP) % MC CI
 
-% Asian Floating Strike Call Option :
+% Asian Floating Strike Call Option (on the mean) :
 [priceAFlC, ~, CIAFlC] = normfit(discpayoffAFlC) % MC CI
 
 % Lookback Fixed Strike Put Option on the minimum :

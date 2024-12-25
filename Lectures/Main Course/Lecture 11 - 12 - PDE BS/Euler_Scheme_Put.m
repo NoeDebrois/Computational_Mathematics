@@ -1,5 +1,5 @@
-%% LECTURE 11 - Explicit Euler for EU Call - Noé Debrois - 29/10/2024
-% Script to price a EU Call Option, under B&S model, using log-price PDE.
+%% LECTURE 11 - Explicit Euler for EU Put - Noé Debrois - 29/10/2024
+% Script to price a EU Put Option, under B&S model, using log-price PDE.
 % We implement Finite Difference Method using EXPLICIT EULER SCHEME.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % About EXPLICIT EULER SCHEME :
