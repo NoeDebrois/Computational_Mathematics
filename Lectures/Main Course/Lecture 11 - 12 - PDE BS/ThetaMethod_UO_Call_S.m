@@ -77,7 +77,7 @@ xlabel('S at t = 0 (spot price)');
 ylabel('U&O Call price at t = 0')
 %
 %% Compute the price at t = 0 :
-price = interp1(S, c, S0, 'spline');
+price = interp1(S, c, S0, 'spline')
 
 % RMK about apparent instability for Crank-Nicholson scheme (cf p30) :
 % Payoff is not continuous so the theory of unconditional stability for 
