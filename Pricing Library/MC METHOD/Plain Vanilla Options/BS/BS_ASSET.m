@@ -22,22 +22,20 @@ function [S,ST] = BS_ASSET(S0, r, T, sigma, M, Nsim)
     X = zeros(Nsim, M + 1); 
     Z = randn(Nsim, M);
 
-    for i=1:Nsim
-        for j=1:M
-            % 1) Simulate the continuous part of the path:
-            X(i, j + 1) = X(i, j) + drift * dt + sigma * sqrt(dt) * Z(i, j);
-        end
+    for j=1:M
+        % 1) Simulate the continuous part of the path:
+        X(:, j + 1) = X(:, j) + drift * dt + sigma * sqrt(dt) * Z(:, j);
     end
     
     %% Get the paths and the final values
     S = S0 * exp(X);
     ST = S(:, end);
 
-    figure;
-    for i=1:Nsim
-        plot(linspace(0, T, M+1), S(i,:));
-        hold on;
-    end    
+    % figure;
+    % for i=1:Nsim
+    %     plot(linspace(0, T, M+1), S(i,:));
+    %     hold on;
+    % end    
 
     %% Check of risk-neutrality
     disp('Risk-Neutrality check. It should be zero:');
