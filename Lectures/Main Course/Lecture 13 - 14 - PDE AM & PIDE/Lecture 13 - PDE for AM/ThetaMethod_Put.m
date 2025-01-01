@@ -3,7 +3,6 @@ close all
 % Pricing a plain vanilla Put Option
 % B&S model - logprice PDE
 % ThetaMethod
-
 %% 1. Parameters & Grids
 S0=1; K=0.95; r=0.001; sigma=0.5; T=1;
 M=100;
@@ -36,21 +35,22 @@ for i=2:N
 end
 
 %% Backward in time loop
-p=max(K-S0*exp(x'),0); 
+p=max(K-S0*exp(x'),0); % Payoff at maturity
 rhs=zeros(N+1,1);
 for j=M:-1:1
     % know c t_j -> compute cnew t_{j-1}
-    rhs=Mat_rhs*p;
-    rhs(1)=K*exp(-r*(T-(j-1)*dt))-Smin;
-    rhs(end)=0;
-    %p=Mat\rhs;
-    p=SOR(Mat,rhs,p);
+    rhs=Mat_rhs*p; % M2 * [V_{j+1},i] cf page 22
+    rhs(1)=K*exp(-r*(T-(j-1)*dt))-Smin; % BC_j (cf page 22 except that here it's a PUT)
+    rhs(end)=0; % PUT 
+    p=SOR(Mat,rhs,p); % Slower than p=Mat\rhs;
+    % vs notes page 22 : Mat=M1, rhs=M2 * [V_{j+1},i] + BCj.
 end
 figure
 plot(S0*exp(x),p); title('put price'); xlabel('S');
 price=interp1(x,p,0,'spline')
+
+
+
+
+
 [~,price_ex]=blsprice(S0,K,r,T,sigma)
-
-
-
-

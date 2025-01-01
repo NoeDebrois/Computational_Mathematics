@@ -1,3 +1,6 @@
+% A basic implementation of SOR. But when we'll use it, it will be a
+% function (cf SOR.m).
+
 clear
 A=[ 2 1 0.2; 0.1 3 0.2; 3 5 12];
 rhs=[1;3;4];
@@ -22,10 +25,5 @@ for i=1:maxiter
         x=xnew;
     end
 end
-xnew
-        
-        
-        
-        
-        
-        
+xnew   
+xnewSOR = SOR(A, rhs, x)

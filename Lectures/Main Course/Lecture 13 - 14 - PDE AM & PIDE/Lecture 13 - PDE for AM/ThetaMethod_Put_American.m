@@ -7,7 +7,7 @@ close all
 %% 1. Parameters & Grids
 S0=1; K=0.95; r=0.001; sigma=0.5; T=1;
 M=100;
-N=500;
+N=1000;
 theta=0.5; % 0 Implicit, 0.5 CN, 1 Explicit
 Smin=0.1*S0; Smax=3*S0;
 xmin=log(Smin/S0); xmax=log(Smax/S0);
@@ -40,14 +40,19 @@ p=max(K-S0*exp(x'),0);
 rhs=zeros(N+1,1);
 for j=M:-1:1
     % know c t_j -> compute cnew t_{j-1}
-    rhs=Mat_rhs*p;
-    rhs(1)=K-Smin;
-    rhs(end)=0;
-    p=PSOR(Mat,rhs,K-S0*exp(x'),p);
+    rhs=Mat_rhs*p; % M2 * [V_{j+1},i] cf page 22
+    rhs(1)=K-Smin; % BC_j (cf page 22 except that here it's a PUT AND no discount on K since it's AM)
+    rhs(end)=0; % PUT 
+    p=PSOR(Mat,rhs,K-S0*exp(x'),p); % vs notes page 22 : Mat=M1, rhs=M2 * [V_{j+1},i] + BCj, + check it's >= payoff (K-S)^+.
 end
 figure
 plot(S0*exp(x),p); title('put price'); xlabel('S');
 price=interp1(x,p,0,'spline')
+
+
+
+
+
 [~,price_european]=blsprice(S0,K,r,T,sigma)
 
 
