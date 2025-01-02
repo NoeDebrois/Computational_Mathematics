@@ -1,6 +1,6 @@
 clear
 close all
-% Price an American Put option under the Merton model
+% Price a European Put option under the Merton model
 % PIDE -> logprice, finite activity, implicit scheme (operator splitting)
 
 %% Input & grids
@@ -75,24 +75,3 @@ index=find( (y>x(1)).*(y<x(end)) );
 c_int(index)=interp1(x,c,y(index));
 
 end
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
